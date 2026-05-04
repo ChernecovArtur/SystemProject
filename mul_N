@@ -1,0 +1,59 @@
+module mul_N #(parameter N = 8) (
+    input  logic [N-1:0]   a,
+    input  logic [N-1:0]   b,
+    output logic [2*N-1:0] result
+);
+
+    generate
+        if (N == 4) begin : base
+            mul_4 u_base (
+                .a(a),
+                .b(b),
+                .result(result)
+            );
+
+        end else begin : karatsuba
+            localparam H = N / 2;
+
+            logic [H-1:0] a_lo, a_hi, b_lo, b_hi;
+            assign a_lo = a[H-1:0];
+            assign a_hi = a[N-1:H];
+            assign b_lo = b[H-1:0];
+            assign b_hi = b[N-1:H];
+
+            logic [H:0] sum_a, sum_b;
+            assign sum_a = {1'b0, a_hi} + {1'b0, a_lo};
+            assign sum_b = {1'b0, b_hi} + {1'b0, b_lo};
+
+            logic ca, cb;
+            logic [H-1:0] sa, sb;
+            assign ca = sum_a[H];
+            assign cb = sum_b[H];
+            assign sa = sum_a[H-1:0];
+            assign sb = sum_b[H-1:0];
+
+            logic [N-1:0] z0;
+            mul_N #(.N(H)) u_z0 (.a(a_lo), .b(b_lo), .result(z0));
+
+            logic [N-1:0] z2;
+            mul_N #(.N(H)) u_z2 (.a(a_hi), .b(b_hi), .result(z2));
+
+            logic [N-1:0] sa_sb;
+            mul_N #(.N(H)) u_z1 (.a(sa), .b(sb), .result(sa_sb));
+
+            logic [2*N-1:0] z1_full;
+            assign z1_full = {{N{1'b0}}, sa_sb}
+                           + (ca ? {{H{1'b0}}, sb, {H{1'b0}}} : {(2*N){1'b0}})
+                           + (cb ? {{H{1'b0}}, sa, {H{1'b0}}} : {(2*N){1'b0}})
+                           + ((ca & cb) ? {{(N-1){1'b0}}, 1'b1, {N{1'b0}}} : {(2*N){1'b0}});
+
+            logic [2*N-1:0] z1_mid;
+            assign z1_mid = z1_full - {{N{1'b0}}, z2} - {{N{1'b0}}, z0};
+
+            assign result = {z2, {N{1'b0}}}
+                          + {z1_mid[2*N-H-1:0], {H{1'b0}}}
+                          + {{N{1'b0}}, z0};
+        end
+    endgenerate
+
+endmodule
