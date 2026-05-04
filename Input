@@ -1,0 +1,54 @@
+4-х битное:
+
+# Top level modules:
+#   mul_4_tb
+# End time: 16:10:02 on May 01,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  mul_4_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" mul_4_tb 
+# Start time: 16:10:02 on May 01,2026
+# Loading sv_std.std
+# Loading work.mul_4_tb
+# Loading work.mul_4
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# mul_4: all 256 tests PASSED
+# ** Note: $stop    : C:/MAGISTRATURA/system_project/mul_4_tb.sv(36)
+#    Time: 2560 ns  Iteration: 0  Instance: /mul_4_tb
+# Break in Module mul_4_tb at C:/MAGISTRATURA/system_project/mul_4_tb.sv line 36
+
+
+Карацубы:
+
+# Top level modules:
+#   mul_N_tb
+# End time: 16:22:09 on May 01,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  mul_N_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" mul_N_tb 
+# Start time: 16:22:09 on May 01,2026
+# Loading sv_std.std
+# Loading work.mul_N_tb
+# Loading work.mul_N
+# Loading work.mul_4
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# a=10 b=10 result=100 expected=100
+# a=123 b=456 result=56088 expected=56088
+# a=65535 b=65535 result=4294836225 expected=4294836225
+# a=3735928559 b=305419896 result=1141026911953209864 expected=1141026911953209864
+# ** Note: $stop    : C:/MAGISTRATURA/system_project/mul_N_tb.sv(39)
+#    Time: 40 ns  Iteration: 0  Instance: /mul_N_tb
+# Break in Module mul_N_tb at C:/MAGISTRATURA/system_project/mul_N_tb.sv line 39
