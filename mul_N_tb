@@ -1,0 +1,42 @@
+`timescale 1ns/1ps
+
+module mul_N_tb;
+
+    parameter int N = 32;
+
+    logic [N-1:0]   a;
+    logic [N-1:0]   b;
+    logic [2*N-1:0] result;
+    logic [2*N-1:0] expected;
+
+    mul_N #(.N(N)) dut (
+        .a(a),
+        .b(b),
+        .result(result)
+    );
+
+    initial begin
+        a = 10; b = 10;
+        #10;
+        expected = 64'(a) * 64'(b);
+        $display("a=%0d b=%0d result=%0d expected=%0d", a, b, result, expected);
+
+        a = 123; b = 456;
+        #10;
+        expected = 64'(a) * 64'(b);
+        $display("a=%0d b=%0d result=%0d expected=%0d", a, b, result, expected);
+
+        a = 65535; b = 65535;
+        #10;
+        expected = 64'(a) * 64'(b);
+        $display("a=%0d b=%0d result=%0d expected=%0d", a, b, result, expected);
+
+        a = 32'hDEADBEEF; b = 32'h12345678;
+        #10;
+        expected = 64'(a) * 64'(b);
+        $display("a=%0d b=%0d result=%0d expected=%0d", a, b, result, expected);
+
+        $stop;
+    end
+
+endmodule
